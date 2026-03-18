@@ -290,6 +290,16 @@
   to upgrade all OSDs in the cluster. For more details see tracker:
   https://tracker.ceph.com/issues/73031.
 
+* MON:  If we have 375 host entries in mgr/cephadm/inventory (cephadm host inventory),
+  with an average size of approximately 182 bytes per host this value may vary
+  depending on the hostname length as well as the number and size of labels the
+  total inventory size would be approximately 68,250 bytes (375 × 182).
+  This exceeds the default value of mon_config_key_max_entry_size (65,536 bytes).
+  By increasing mon_config_key_max_entry_size to 256 KB, the inventory could accommodate
+  approximately 5,761 host entries (1,048,576 ÷ 182), providing a significantly larger and safer
+  margin for future growth. For more details see tracker:
+  https://tracker.ceph.com/issues/75346
+
 >=19.2.1
 
 * CephFS: The `fs subvolume create` command now allows tagging subvolumes through option
